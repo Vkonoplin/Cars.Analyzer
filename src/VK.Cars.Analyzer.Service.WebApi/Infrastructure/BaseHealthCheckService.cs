@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using VK.Cars.Analyzer.Service.WebApi.Model;
 
-namespace VK.Cars.Analyzer.Service.WebApi.Services
+namespace VK.Cars.Analyzer.Service.WebApi.Infrastructure
 {
     public class BaseHealthCheckService
     {

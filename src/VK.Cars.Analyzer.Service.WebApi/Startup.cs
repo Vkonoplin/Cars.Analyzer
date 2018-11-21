@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
+using VK.Cars.Analyzer.Service.WebApi.Db;
 using VK.Cars.Analyzer.Service.WebApi.Infrastructure;
-using VK.Cars.Analyzer.Service.WebApi.Services;
 
 namespace VK.Cars.Analyzer.Service.WebApi
 {
@@ -19,7 +21,17 @@ namespace VK.Cars.Analyzer.Service.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<BaseHealthCheckService>();
+            var connectionString = Configuration.GetConnectionString("Sql");
+            services.AddDbContext<DbSqlContex>(options => options.UseSqlServer(connectionString));
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Cars API Service", Version = "v1" });
+            });
+
+            services.AddOptions();
+
+           services.AddTransient<BaseHealthCheckService>();
+
             services.AddMvc(options => { options.Filters.Add<ExceptionFilter>(); }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -31,6 +43,13 @@ namespace VK.Cars.Analyzer.Service.WebApi
             }
 
             app.UseStaticFiles();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Manifest API");
+            });
             app.UseMvc();
         }
     }
