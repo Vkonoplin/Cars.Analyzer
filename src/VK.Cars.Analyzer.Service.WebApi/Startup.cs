@@ -27,7 +27,7 @@ namespace VK.Cars.Analyzer.Service.WebApi
             services.AddDbContext<DbSqlContext>(options => options.UseSqlServer(connectionString));
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Cars API Service", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "Cars Analyzer API Service", Version = "v1" });
             });
 
             services.AddOptions();

@@ -2,6 +2,5 @@
 {
     public class CommonConstants
     {
-        public const string MongoDbName = "Cars";
     }
 }
