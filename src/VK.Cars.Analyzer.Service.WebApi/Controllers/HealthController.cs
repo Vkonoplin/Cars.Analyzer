@@ -2,16 +2,16 @@
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using VK.Cars.Analyzer.Service.WebApi.Infrastructure;
+using VK.Cars.Analyzer.Service.WebApi.Business.Services;
 using VK.Cars.Analyzer.Service.WebApi.Models;
 
 namespace VK.Cars.Analyzer.Service.WebApi.Controllers
 {
     public class HealthController : Controller
     {
-        private readonly BaseHealthCheckService _healthCheck;
+        private readonly HealthCheckService _healthCheck;
 
-        public HealthController(BaseHealthCheckService healthCheck)
+        public HealthController(HealthCheckService healthCheck)
         {
             _healthCheck = healthCheck;
         }
@@ -19,7 +19,7 @@ namespace VK.Cars.Analyzer.Service.WebApi.Controllers
         [HttpGet("/health")]
         public async Task<IActionResult> Health()
         {
-            var healthCheckResults = _healthCheck.ExecuteHealthchecks();
+            var healthCheckResults = await _healthCheck.ExecuteHealthchecks();
             var isOnline = healthCheckResults.All(healthCheck => healthCheck.Passed);
 
             var response = new HealthCheckResponse { IsOnline = isOnline, HealthChecks = healthCheckResults };

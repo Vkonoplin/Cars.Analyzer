@@ -4,7 +4,6 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using VK.Cars.Analyzer.Service.WebApi.Infrastructure.Models;
-using VK.Cars.Analyzer.Service.WebApi.Models;
 
 namespace VK.Cars.Analyzer.Service.WebApi
 {

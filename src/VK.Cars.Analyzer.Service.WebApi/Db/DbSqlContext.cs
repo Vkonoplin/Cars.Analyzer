@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using VK.Cars.Analyzer.Service.WebApi.Db.Entities;
 
 namespace VK.Cars.Analyzer.Service.WebApi.Db
 {
-    public class DbSqlContex : DbContext
+    public class DbSqlContext : DbContext
     {
-        public DbSqlContex(DbContextOptions<DbSqlContex> options)
+        public DbSqlContext(DbContextOptions<DbSqlContext> options)
             : base(options)
         {
         }
@@ -12,6 +13,8 @@ namespace VK.Cars.Analyzer.Service.WebApi.Db
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<HealthCheckDataEntity>();
         }
     }
 }

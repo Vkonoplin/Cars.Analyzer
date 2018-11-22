@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using VK.Cars.Analyzer.Service.WebApi.Model;
 
 namespace VK.Cars.Analyzer.Service.WebApi.Infrastructure
 {
     public class BaseHealthCheckService
     {
-        public virtual List<HealthCheckResult> ExecuteHealthchecks()
+        public async virtual Task<List<HealthCheckResult>> ExecuteHealthchecks()
         {
             return new List<HealthCheckResult> { new HealthCheckResult { Passed = true, Message = "Service is alive", CheckType = "Service" } };
         }
